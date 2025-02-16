@@ -41,8 +41,6 @@ Demographic data
 - Group: neurotypical = 1, neurodiverse = 2
 - Dataset: dHCP = 1, BCP = 2, CALM = 3, RED = 4, ACE = 5, HCPd = 6, HCPya = 7, camCAN = 8, HCPa = 9
 
-Data Workflow
-
 Connectomes
 - all_data (n = 4,216): Contains all scans (longitudinal/repeat scans, neurodiverse sample and outliers)
 - thesholded_data (n = 4,202): After removing outliers, this is the thresholded data 
