@@ -15,7 +15,7 @@ Rubinov, M., & Sporns, O. (2010). Complex network measures of brain connectivity
 
 **Script outline:**
 
-set_paths.m and set_paths.py - Add paths paths to the data and toolbox (it will be called in 
+set_paths.m and set_paths.py - Add paths paths to the data and toolbox (it will be called into scripts) 
 
 Scripts are ordered based on analysis proceedures:
 - A_network_thresholding.m                 (threshold networks for density-controlled and variable-density analysis)
@@ -64,7 +64,7 @@ Additional Data
 - demographics.csv: Contians all demographic data used in the analysis
 - target_density (91x1): The target densities for each age group (0-90) used in the variable density thresholding procedure 
 - pca_*: various PCA outputs (e.g., scores, loadings, etc)
-- lass_coefs: the coefficients from the LASSO regressions per epoch
+- lasso_coefs: the coefficients from the LASSO regressions per epoch
 
 
 
