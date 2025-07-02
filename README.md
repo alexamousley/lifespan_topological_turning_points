@@ -30,6 +30,7 @@ Scripts are ordered based on analysis proceedures:
 - J_PCA_analysis.ipynb                     (assess PCA score differences between epochs)
 - K_dynamic_time_warping.ipynb             (DTW analysis on PCA series for each epoch)
 - local_analysis.m                         (region-level correlational analysis)
+- gamma_sweep.m                            (exploring multiple gamma levels for modularity calculation)
 
 UMAP_functions.ipynb - defined functions for creating multiple UMAPs and defining turning points called script F.
 
@@ -66,6 +67,7 @@ Additional Data
 - target_density (91x1): The target densities for each age group (0-90) used in the variable density thresholding procedure 
 - pca_*: various PCA outputs (e.g., scores, loadings, etc)
 - lasso_coefs: the coefficients from the LASSO regressions per epoch
+- random_networks: randomized networks with preserved density and degree-distributions
 
 
 
