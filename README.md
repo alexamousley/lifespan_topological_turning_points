@@ -29,6 +29,7 @@ Scripts are ordered based on analysis proceedures:
 - I_correlations_and_lasso_analysis.ipynb  (run correlations per epoch and plot with LASSO coefficients)
 - J_PCA_analysis.ipynb                     (assess PCA score differences between epochs)
 - K_dynamic_time_warping.ipynb             (DTW analysis on PCA series for each epoch)
+- local_analysis.m                         (region-level correlational analysis)
 
 UMAP_functions.ipynb - defined functions for creating multiple UMAPs and defining turning points called script F.
 

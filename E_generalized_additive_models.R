@@ -22,7 +22,7 @@ demographics <- read.csv('demographics.csv')
 
 ### Load Statistics ###
 measures <- readMat('density-controlled_organizational_measures.mat')
-# Or uncoment the line below for variable-density
+# Or uncomment the line below for variable-density
 # measures <- readMat('variable-controlled_organizational_measures.mat')
 measures <- measures$organizational.measures
 

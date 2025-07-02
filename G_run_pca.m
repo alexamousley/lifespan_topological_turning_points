@@ -21,11 +21,13 @@ load('umap_input_data');
 %% Set up data
 
 % Concatenate fields into one array
-data = [];                              % Initalize
-fieldNames = fieldnames(mat);           % Pull names
-for i = 1:numel(fieldNames)             % Loop through each field
-    currentField = mat.(fieldNames{i}); % Select the field
-    data = [data, currentField(:)];     % Add it to the array
+fieldNames = fieldnames(mat);                          % Pull field names
+numFields = numel(fieldNames);                         % Number of fields
+numSubjects = length(mat.(fieldNames{1}));             % Length of data in each field
+data = zeros(numSubjects,numFields);                   % Initialize data matrix
+for i = 1:numFields
+    currentField = mat.(fieldNames{i});                % Get field data
+    data(:,i) = currentField;                          % Store in row of data matrix
 end
 
 % Define age
@@ -54,16 +56,16 @@ for i = 1:num_iterations
 end
 
 % Calculate the 95th percentile for each column
-percentile_95 = zeros(1, size(random_eigenvalues, 2));
+simulated_eigenvalues = zeros(1, size(random_eigenvalues, 2));
 for i = 1:size(random_eigenvalues, 2)
-    percentile_95(i) = prctile(random_eigenvalues(:, i), 95);
+    simulated_eigenvalues(i) = prctile(random_eigenvalues(:, i), 95);
 end
 
 % Plot actual and simulated eigenvalues on the same plot
 figure;
 hold on;
 plot(1:num_variables, eigenvalues, 'bo-', 'LineWidth', 2, 'DisplayName', 'Observed');
-plot(1:num_variables, percentile_95, 'k*--', 'LineWidth', 2, 'DisplayName', 'Simulated');
+plot(1:num_variables, simulated_eigenvalues, 'k*--', 'LineWidth', 2, 'DisplayName', 'Simulated');
 xlabel('Principal Component', 'FontName', 'Arial');
 ylabel('Eigenvalue', 'FontName', 'Arial');
 legend('show', 'FontName', 'Arial');

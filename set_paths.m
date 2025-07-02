@@ -21,12 +21,12 @@ Toolbox publication:
 Rubinov, M., & Sporns, O. (2010). Complex network measures of brain 
 connectivity: uses and interpretations. Neuroimage, 52(3), 1059-1069.
 %}
-addpath('/path/to/BCT/');  
+addpath('/Set/Folder/For/BCT');  
 
 
 %% Data path
 
 % Add path to data
-addpath('/path/to/data');
+addpath('/Set/Folder/For/Data');
 
 

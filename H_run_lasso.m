@@ -19,17 +19,19 @@ load('umap_input_data');
 %% Format data
 
 % Concatenate fields into one array
-data = [];
-fieldNames = fieldnames(mat);
-for i = 1:numel(fieldNames)
-    currentField = mat.(fieldNames{i});
-    data = [data, currentField(:)];
+fieldNames = fieldnames(mat);                          % Pull field names
+numFields = numel(fieldNames);                         % Number of fields
+numSubjects = length(mat.(fieldNames{1}));             % Length of data in each field
+data = zeros(numSubjects,numFields);                   % Initialize data matrix
+for i = 1:numFields
+    currentField = mat.(fieldNames{i});                % Get field data
+    data(:,i) = currentField;                          % Store in row of data matrix
 end
 
-% Define age and remove it from the array
+% Define age
 ages = data(:,1);
+% Remove age column
 data(:,1) = [];
-
 % Standardize data
 data = zscore(data);
 
@@ -39,11 +41,11 @@ predictors = {'Global Efficiency', 'Path Length', 'Small -Worldness',...
     'Clustering Coefficient', 'Betweenness Centrality', 'Subgraph Centrality'};
 
 % Define epoch ranges
-r1 = [0 8];
-r2 = [8 32];
-r3 = [32 62];
-r4 = [62 85];
-r5 = [85 90];
+r1 = [0 9];
+r2 = [9 32];
+r3 = [32 66];
+r4 = [66 83];
+r5 = [83 90];
 epoch_range = [r1; r2; r3; r4; r5];
 
 % Define colors for plotting 
@@ -52,6 +54,7 @@ rgb_colors = {[212,53,11];[94,164,226];[204,156,11];[0,77,64];[63,45,234]};
 normalized_rgb_colors = cellfun(@(c) c / 255, rgb_colors, 'UniformOutput', false);
 
 %% Run LASSO
+rng(1); % Set seed for reproducability
 
 % Loop through epochs
 for i = 1:length(epoch_range)
@@ -67,7 +70,7 @@ for i = 1:length(epoch_range)
     % Run LASSO
     [B fit] = lasso(x,y,'CV',10,'PredictorNames',predictors);
 
-    if i < 5
+    if i < 4
         % Display 
         disp(['Epoch ' num2str(r), ' - Sample size:' num2str(length(y)), '; Lambda = ' num2str(fit.Lambda1SE)]);
   

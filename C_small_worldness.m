@@ -32,34 +32,60 @@ nsub = length(harmonized_data.demographics.ages);                               
 
 % Density-controlled small worldness
 for sub = 1:nsub
-    % Take participant's networks
-    conn = squeeze(harmonized_data.connectomes.controlled_density.normalized_weighted(sub,:,:));
-    C = mean(clustering_coef_wu(conn)); % Calculate clustering coefficient
-    L = charpath(conn);                 % Calculate characteristic path length
-    % Create random networks
-    for i = 1:sim
+    % take subject's networks
+    conn = squeeze(lifespan_project_data.connectomes.controlled_density.normalised_weighted(sub,:,:));
+    
+    clust = clustering_coef_bu(conn); % Calculate clustering coefficient
+    clust(clust==Inf) = NaN;          % Replace any Inf with NaN for averaging
+    C = nanmean(clust);               % Take average clustering coefficient
+    dist = distance_bin(conn);
+    L = charpath(dist,0,0);           % Calculate characteristic path length
+    
+    % Random networks
+    for i = 1:1000
+        % Create random network
         rand = randmio_und(conn,50);
-        rand_C(i) = mean(clustering_coef_bu(rand));
-        rand_L(i) = charpath(rand);
+
+        % Calcuate properies 
+        clust = mean(clustering_coef_bu(rand));
+        clust(clust==Inf) = NaN;
+        rand_C(i) = nanmean(clust);
+        dist = distance_bin(rand);
+        rand_L(i) = charpath(dist,0,0);
     end
-    % Calculate small wordlness (sigma > 1 indicates small worldnness)
-    density_controlled_sigma(sub) = (C / mean(rand_C)) / (L / mean(rand_L)); % Ratio of the normalized clustering to normalized characteristic path length
+
+    % Small-worldness metric (sigma > 1 indicates small worldnness)
+    density_controlled_sigma(sub) = (C / mean(rand_C)) / (L / mean(rand_L)); % Ratio of the normalized clustering and the normalized characteristic path length
+    disp(sprintf('Finsihed %d',sub))
 end
 
 % Variable density small worldness
 for sub = 1:nsub
-    % Take participant's networks
-    conn = squeeze(harmonized_data.connectomes.variable_density.normalized_weighted(sub,:,:));
-    C = mean(clustering_coef_wu(conn)); % Calculate clustering coefficient
-    L = charpath(conn);                 % Calculate characteristic path length
-    % Create random networks
-    for i = 1:sim
+    % take subject's networks
+    conn = squeeze(lifespan_project_data.connectomes.variable-density.normalised_weighted(sub,:,:));
+    
+    clust = clustering_coef_bu(conn); % Calculate clustering coefficient
+    clust(clust==Inf) = NaN;          % Replace any Inf with NaN for averaging
+    C = nanmean(clust);               % Take average clustering coefficient
+    dist = distance_bin(conn);
+    L = charpath(dist,0,0);           % Calculate characteristic path length
+    
+    % Random networks
+    for i = 1:1000
+        % Create random network
         rand = randmio_und(conn,50);
-        rand_C(i) = mean(clustering_coef_bu(rand));
-        rand_L(i) = charpath(rand);
+
+        % Calcuate properies 
+        clust = mean(clustering_coef_bu(rand));
+        clust(clust==Inf) = NaN;
+        rand_C(i) = nanmean(clust);
+        dist = distance_bin(rand);
+        rand_L(i) = charpath(dist,0,0);
     end
-    % Calculate small wordlness (sigma > 1 indicates small worldnness)
-    variable_density_sigma(sub) = (C / mean(rand_C)) / (L / mean(rand_L)); % Ratio of the normalized clustering to normalized characteristic path length
+
+    % Small-worldness metric (sigma > 1 indicates small worldnness)
+    variable_density_sigma(sub) = (C / mean(rand_C)) / (L / mean(rand_L)); % Ratio of the normalized clustering and the normalized characteristic path length
+    disp(sprintf('Finsihed %d',sub))
 end
 
 % Save             

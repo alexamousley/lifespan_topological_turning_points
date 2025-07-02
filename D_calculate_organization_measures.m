@@ -18,27 +18,26 @@ run('/path/to/set_paths.m');  % <<<<< Add path to set_paths file
 % Load networks
 load('harmonized_data.mat');
 % Load small worldness (choose which types of networks network)
-load('density_controlled_sigma.mat')
+%load('density_controlled_sigma.mat')
 
 % Choose which networks to use
 weighted_networks = harmonized_data.connectomes.controlled_density.normalized_weighted; % Weighted networks
 binarized_networks = harmonized_data.connectomes.controlled_density.binarized;          % Binarized networks
 % Define data
-nsub = length(harmonized_data.demographics.ages);                                       % Number of participants      
+nsub = length(harmonized_data.demographics.age);                                        % Number of participants      
 nnodes = width(weighted_networks);                                                      % Number of nodes
-
 
 %% Calculate graph theory measures for networks
 
 % Initialize
-local_statistics   = zeros(nsub,nnodes,length(localmeasures));
-global_statistics  = zeros(nsub,length(globalmeasures));
+local_statistics   = zeros(nsub,nnodes,5);
+global_statistics  = zeros(nsub,9);
 
 % Loop over participants
 for sub = 1:nsub
     % Take single participant's networks
     wconn = squeeze(weighted_networks(sub,:,:));
-    bconn = squeeze(binarised_networks(sub,:,:));
+    bconn = squeeze(binarized_networks(sub,:,:));
      
     %%% Local statistics %%%
     local_statistics(sub,:,1) = strengths_und(wconn);                          % Strength
@@ -49,12 +48,12 @@ for sub = 1:nsub
 
     %%% Global statistics %%%
     global_statistics(sub,1) = density_und(wconn);                             % Density
-    [global_statistics(sub,3), global_statistics(sub,2)] = charpath(dist,0,0); % Charactersistic path length & global efficiency
-    [~,global_statistics(sub,6)] = modularity_und(wconn);                      % Modularity 
     dist = distance_bin(wconn);
-    [~, global_statistics(sub,7)] = core_periphery_dir(wconn);                 % Core/periphery structure
-    [~,global_statistics(sub,8)] = kcore_bu(bconn,6);                          % K-core 
-    [~,global_statistics(sub,9)] = score_wu(wconn,0.6);                        % S-core 
+    [global_statistics(sub,3), global_statistics(sub,2)] = charpath(dist,0,0); % Charactersistic path length & global efficiency
+    [~,global_statistics(sub,5)] = modularity_und(wconn);                      % Modularity 
+    [~, global_statistics(sub,6)] = core_periphery_dir(wconn);                 % Core/periphery structure
+    [~,global_statistics(sub,7)] = kcore_bu(bconn,6);                          % K-core 
+    [~,global_statistics(sub,8)] = score_wu(wconn,0.6);                        % S-core 
     fprintf('Finished Participant %g\n',sub)
 end
 

@@ -59,7 +59,7 @@ for i = 1:length(target_density)
                 density = zeros(1, length(index));
                 for sub = 1:length(index)
                     W = squeeze(connectomes(sub, :, :));          % Unthresholded connectome
-                    W_thr = threshold_absolute(W, thresholds(t)); % Apply absolute threshold
+                    W_thr = threshold_absolute(W, thresholds(t)); % Apply absolute threshold (from Brain Connectivity Toolbox)
                     density(sub) = density_und(W_thr);            % Calculate density
                     
                     % Binarize and save connectomes
