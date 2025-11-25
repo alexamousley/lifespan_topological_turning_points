@@ -1,6 +1,6 @@
 **Code repository for:**
 
-Preprint to come
+Mousley, A., Bethlehem, R.A.I., Yeh, FC. et al. Topological turning points across the human lifespan. Nat Commun 16, 10055 (2025). https://doi.org/10.1038/s41467-025-65974-8
 
 For any questions regarding the use of this repository, please get in touch at alexa.mousley@mrc-cbu.cam.ac.uk
 
