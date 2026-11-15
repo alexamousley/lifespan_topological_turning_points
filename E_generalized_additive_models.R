@@ -44,6 +44,11 @@ colnames(Fglobal_data) <- col_names
 Mglobal_data <- as.data.frame(bind_cols(demographics[!sex_index,],measures[!sex_index,]))
 colnames(Mglobal_data) <- col_names
 
+# Dataset and atlas are labels, not quantities: enter them into the models as factors
+global_data$dataset <- factor(global_data$dataset);   global_data$atlas <- factor(global_data$atlas)
+Fglobal_data$dataset <- factor(Fglobal_data$dataset); Fglobal_data$atlas <- factor(Fglobal_data$atlas)
+Mglobal_data$dataset <- factor(Mglobal_data$dataset); Mglobal_data$atlas <- factor(Mglobal_data$atlas)
+
 ##############################################################################################################################
 #
 # GAMs and plots for Figure 2 (density-controlled), Extended Data Figure 1 (variable-density) 
