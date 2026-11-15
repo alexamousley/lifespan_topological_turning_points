@@ -50,7 +50,7 @@ for sub = 1:nsub
     global_statistics(sub,1) = density_und(wconn);                             % Density
     dist = distance_bin(wconn);
     [global_statistics(sub,3), global_statistics(sub,2)] = charpath(dist,0,0); % Charactersistic path length & global efficiency
-    [~,global_statistics(sub,5)] = modularity_und(wconn);                      % Modularity 
+    [~,global_statistics(sub,5)] = modularity_und(wconn,0.6);                  % Modularity (gamma = 0.6, see gamma_sweep.m)
     [~, global_statistics(sub,6)] = core_periphery_dir(wconn);                 % Core/periphery structure
     [~,global_statistics(sub,7)] = kcore_bu(bconn,6);                          % K-core 
     [~,global_statistics(sub,8)] = score_wu(wconn,0.6);                        % S-core 
