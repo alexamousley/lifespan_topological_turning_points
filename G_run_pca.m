@@ -81,7 +81,9 @@ hold off;
 [loadings, score, eigenvalues, ~, explained] = pca(data,'NumComponents',3);
 
 % Perform orthogonal rotation on PCA loadings
-rotated_loadings = rotatefactors(loadings, 'Method', 'varimax');
+[rotated_loadings, rotation_matrix] = rotatefactors(loadings, 'Method', 'varimax');
+% Rotate the scores with the same matrix so that scores and loadings describe the same components
+score = score * rotation_matrix;
 
 % Display the original and rotated loadings
 disp('Original Loadings:');
