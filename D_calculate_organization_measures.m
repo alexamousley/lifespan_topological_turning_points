@@ -43,7 +43,7 @@ for sub = 1:nsub
     local_statistics(sub,:,1) = strengths_und(wconn);                          % Strength
     local_statistics(sub,:,2) = efficiency_wei(wconn,1);                       % Local efficiency
     local_statistics(sub,:,3) = clustering_coef_wu(wconn);                     % Clustering coefficient
-    local_statistics(sub,:,4) = betweenness_wei(wconn);                        % Betweenness centrality
+    local_statistics(sub,:,4) = betweenness_wei(weight_conversion(wconn,'lengths')); % Betweenness centrality (input must be a connection-length matrix)
     local_statistics(sub,:,5) = subgraph_centrality(bconn);                    % Subgraph centrality
 
     %%% Global statistics %%%
